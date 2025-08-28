@@ -2,36 +2,81 @@
 <html lang="uk">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Portfolio | Frontend Developer</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Годинник</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: #f5f5f5;
+      }
+      .clock-wrapper {
+        position: relative;
+        display: inline-block;
+      }
+      .clock-bg {
+        display: block;
+        width: 400px; /* можна змінювати */
+        height: auto;
+      }
+      .hand {
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+        transform-origin: bottom center;
+        transform: translateX(-50%) rotate(0deg);
+        background: black;
+      }
+      .hour {
+        width: 6px;
+        height: 70px;
+      }
+      .minute {
+        width: 4px;
+        height: 100px;
+      }
+      .second {
+        width: 2px;
+        height: 120px;
+        background: red;
+      }
+    </style>
   </head>
   <body>
-    <header class="header">
-      <div class="container header-container"></div>
-    </header>
+    <div class="clock-wrapper">
+      <img src="./5155448_2724959 1.png" alt="Clock" class="clock-bg" />
+      <div class="hand hour" id="hour"></div>
+      <div class="hand minute" id="minute"></div>
+      <div class="hand second" id="second"></div>
+    </div>
 
-    <main>
-      <section class="aone">
-        <div class="container one-container"></div>
-      </section>
-      <section class="two">
-        <div class="container two-container"></div>
-      </section>
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const h = now.getHours() % 12;
+        const m = now.getMinutes();
+        const s = now.getSeconds();
 
-      <section class="three">
-        <div class="container three-container"></div>
-      </section>
+        const hourDeg = (h + m / 60) * 30; // 360/12
+        const minuteDeg = (m + s / 60) * 6; // 360/60
+        const secondDeg = s * 6;
 
-      <section class="four">
-        <div class="container four-container"></div>
-      </section>
-    </main>
+        document.getElementById(
+          "hour"
+        ).style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+        document.getElementById(
+          "minute"
+        ).style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+        document.getElementById(
+          "second"
+        ).style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+      }
 
-    <footer class="footer">
-      <div class="container container_footer">
-        <p class="container_footer-p">© 2025 Vitalii Baranov</p>
-      </div>
-    </footer>
+      setInterval(updateClock, 1000);
+      updateClock();
+    </script>
   </body>
 </html>
