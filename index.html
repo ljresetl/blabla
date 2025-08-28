@@ -13,34 +13,43 @@
         margin: 0;
         background: #f5f5f5;
       }
+
       .clock-wrapper {
         position: relative;
-        display: inline-block;
+        width: 400px;
+        height: 400px;
       }
+
       .clock-bg {
+        width: 100%;
+        height: 100%;
         display: block;
-        width: 400px; /* можна змінювати */
-        height: auto;
       }
+
       .hand {
         position: absolute;
         bottom: 50%;
         left: 50%;
         transform-origin: bottom center;
         transform: translateX(-50%) rotate(0deg);
+        border-radius: 3px;
+      }
+
+      .hour {
+        width: 8px;
+        height: 100px;
         background: black;
       }
-      .hour {
-        width: 6px;
-        height: 70px;
-      }
+
       .minute {
-        width: 4px;
-        height: 100px;
+        width: 5px;
+        height: 140px;
+        background: black;
       }
+
       .second {
         width: 2px;
-        height: 120px;
+        height: 160px;
         background: red;
       }
     </style>
@@ -48,6 +57,7 @@
   <body>
     <div class="clock-wrapper">
       <img src="5155448_2724959 1.png" alt="Clock" class="clock-bg" />
+      <!-- Тільки три стрілки -->
       <div class="hand hour" id="hour"></div>
       <div class="hand minute" id="minute"></div>
       <div class="hand second" id="second"></div>
@@ -60,19 +70,15 @@
         const m = now.getMinutes();
         const s = now.getSeconds();
 
-        const hourDeg = (h + m / 60) * 30; // 360/12
-        const minuteDeg = (m + s / 60) * 6; // 360/60
-        const secondDeg = s * 6;
-
         document.getElementById(
           "hour"
-        ).style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+        ).style.transform = `translateX(-50%) rotate(${(h + m / 60) * 30}deg)`;
         document.getElementById(
           "minute"
-        ).style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+        ).style.transform = `translateX(-50%) rotate(${(m + s / 60) * 6}deg)`;
         document.getElementById(
           "second"
-        ).style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+        ).style.transform = `translateX(-50%) rotate(${s * 6}deg)`;
       }
 
       setInterval(updateClock, 1000);
